@@ -1,0 +1,41 @@
+server:
+  port: 8080
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      routes:
+        - id: user-service
+          uri: lb://USER-SERVICE
+          predicates:
+            - Path=/api/users/**
+        - id: room-service
+          uri: lb://ROOM-SERVICE
+          predicates:
+            - Path=/api/rooms/**
+        - id: video-service
+          uri: lb://VIDEO-SERVICE
+          predicates:
+            - Path=/api/videos/**
+
+springdoc:
+  api-docs:
+    enabled: true
+    path: /api-docs
+  swagger-ui:
+    enabled: true
+    path: /swagger-ui.html
+  group-configs:
+    - group: user-service
+      paths-to-match: /api/users/**
+    - group: room-service
+      paths-to-match: /api/rooms/**
+    - group: video-service
+      paths-to-match: /api/videos/**

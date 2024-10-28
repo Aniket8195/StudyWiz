@@ -1,0 +1,21 @@
+server:
+  port: 8093
+
+spring:
+  application:
+    name: video-service
+  datasource:
+    url: jdbc:postgresql://aws-0-ap-south-1.pooler.supabase.com/postgres
+    username: postgres.qvypkvgcdpirrncmgtte
+    password: Aniket@8195
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  cloud:
+    discovery:
+      client:
+        serviceUrl:
+          defaultZone: http://localhost:8761/eureka/
+
+
