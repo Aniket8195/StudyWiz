@@ -12,10 +12,20 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
-  cloud:
-    discovery:
-      client:
-        serviceUrl:
-          defaultZone: http://localhost:8761/eureka/
+#  cloud:
+#    discovery:
+#      client:
+#        serviceUrl:
+#          defaultZone: http://localhost:8761/eureka/
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
 
-
+springdoc:
+  api-docs:
+    enabled: true
+    path: /video-service/api-docs
+  swagger-ui:
+    enabled: true
+    path: /video-service/swagger-ui.html

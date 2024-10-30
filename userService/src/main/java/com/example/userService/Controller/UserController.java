@@ -14,7 +14,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import java.util.Map;
 
 @RestController
-@RequestMapping("api/user")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
+@RequestMapping("/user-service")
 public class UserController {
 
     @Autowired
@@ -85,4 +86,18 @@ public class UserController {
 
 
     }
+
+    @GetMapping("/user/{email}")
+    public User getUserByEmail(@PathVariable String email) {
+        try {
+            return userService.getUserByEmail(email);
+
+        } catch (Exception e) {
+            return null;
+        }
+    }
+     @GetMapping("/user/healthcheck")
+    public String healthCheck() {
+         return "User Service is up and running";
+     }
 }

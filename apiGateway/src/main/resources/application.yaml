@@ -15,15 +15,31 @@ spring:
         - id: user-service
           uri: lb://USER-SERVICE
           predicates:
-            - Path=/api/users/**
+            - Path=/user-service/**
         - id: room-service
           uri: lb://ROOM-SERVICE
           predicates:
-            - Path=/api/rooms/**
+            - Path=/room-service/**
         - id: video-service
           uri: lb://VIDEO-SERVICE
           predicates:
-            - Path=/api/videos/**
+            - Path=/video-service/**
+
+
+#springdoc:
+#  api-docs:
+#    enabled: true
+#    path: /api-docs
+#  swagger-ui:
+#    enabled: true
+#    path: /swagger-ui.html
+#  group-configs:
+#    - group: user-service
+#      paths-to-match: /user-service/**
+#    - group: room-service
+#      paths-to-match: /room-service/**
+#    - group: video-service
+#      paths-to-match: /video-service/**
 
 springdoc:
   api-docs:
@@ -31,11 +47,15 @@ springdoc:
     path: /api-docs
   swagger-ui:
     enabled: true
-    path: /swagger-ui.html
-  group-configs:
-    - group: user-service
-      paths-to-match: /api/users/**
-    - group: room-service
-      paths-to-match: /api/rooms/**
-    - group: video-service
-      paths-to-match: /api/videos/**
+    urls:
+      - name: User Service
+        url: /user-service/api-docs
+      - name: Room Service
+        url: /room-service/api-docs
+      - name: Video Service
+        url: /video-service/api-docs
+
+
+
+
+

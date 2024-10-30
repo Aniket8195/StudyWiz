@@ -13,6 +13,6 @@ public class SwaggerConfig {
         return new OpenAPI()
                 .info(new Info().title("Serve Ease API Documentation")
                         .version("1.0")
-                        .description("API documentation for Serve Ease"));
+                        .description("API documentation for Video Service"));
     }
 }
