@@ -14,7 +14,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import java.util.Map;
 
 @RestController
-@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping("/user-service")
 public class UserController {
 
@@ -32,16 +31,20 @@ public class UserController {
 
     @PostMapping("/register")
     public ResponseEntity register(@RequestBody RegisterDTO user) {
+        System.out.println("Registering user: " + user);
         try{
             if(userRepository.findByEmail(user.getEmail()) != null){
+                System.out.println("Email already exists");
                 return ResponseEntity.badRequest().body("Email already exists");
             }
             User user1=new User();
 
+
             user1.setEmail(user.getEmail());
-            user1.setUsername(user.getUsername());
+            user1.setUsername(user.getUserName());
             user1.setPassword(passwordEncoder.encode(user.getPassword()));
             User user2=userService.register(user1);
+
 
             return ResponseEntity.ok(Map.of(
 
@@ -62,10 +65,14 @@ public class UserController {
               return ResponseEntity.badRequest().body("Email does not exist");
 
           }
+          User user1=userRepository.findByEmail(user.getEmail());
           String token= jwtUtil.generateToken(user.getEmail());
+          System.out.println("Token: " + token);
+          System.out.println("User: " + user1);
             return ResponseEntity.ok(Map.of(
                     "message", "User logged in successfully",
-                    "token", token
+                    "token", token,
+                    "user", user1
             ));
 
        }catch ( Exception e){

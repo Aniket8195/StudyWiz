@@ -1,6 +1,7 @@
 package com.example.roomService.Controller;
 
 import com.example.roomService.DTO.RoomRegDTO;
+import com.example.roomService.DTO.RoomResDTO;
 import com.example.roomService.DTO.UserDTO;
 import com.example.roomService.Entity.Room;
 import com.example.roomService.Entity.RoomMember;
@@ -15,7 +16,7 @@ import java.util.Map;
 
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")
-@RequestMapping("/api/rooms")
+@RequestMapping("room-service")
 public class RoomController {
     @Autowired
     private RoomService roomService;
@@ -41,6 +42,7 @@ public class RoomController {
     @GetMapping("/{id}")
     public ResponseEntity<Map<String, Object>> getRoomById(@PathVariable Long id) {
         try {
+            System.out.println("Room ID: " + id);
             Room room = roomService.getRoomById(id);
             if (room != null) {
                 return new ResponseEntity<>(Map.of("room", room), HttpStatus.OK);
@@ -57,7 +59,9 @@ public class RoomController {
     public ResponseEntity<Map<String, Object>> getAllRooms() {
         try {
             List<Room> rooms = roomService.getAllRooms();
-            return new ResponseEntity<>(Map.of("rooms", rooms), HttpStatus.OK);
+            List<RoomResDTO> roomResDTOS=rooms.stream().map(room -> new RoomResDTO(room.getId(),room.getName(),room.getDescription(),room.getMaxMembers(),room.isPrivate())).toList();
+
+            return new ResponseEntity<>(Map.of("rooms", roomResDTOS), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(Map.of("error", "Failed to retrieve rooms", "message", e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -77,11 +81,24 @@ public class RoomController {
             return new ResponseEntity<>(Map.of("error", "Failed to update room", "message", e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<Map<String, Object>> getRoomsByUserId(@PathVariable Long userId) {
+        try {
+            System.out.println("User ID: " + userId);
+            List<Room> rooms = roomService.getRoomsByUserId(userId);
+            List<RoomResDTO> roomResDTOS=rooms.stream().map(room -> new RoomResDTO(room.getId(),room.getName(),room.getDescription(),room.getMaxMembers(),room.isPrivate())).toList();
+
+            return new ResponseEntity<>(Map.of("rooms", roomResDTOS), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(Map.of("error", "Failed to retrieve rooms", "message", e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
     // Delete a room
     @DeleteMapping("/{id}")
-    public ResponseEntity<Map<String, Object>> deleteRoom(@PathVariable Long id, @RequestBody int ownerId) {
+    public ResponseEntity<Map<String, String>> deleteRoom(@PathVariable Long id, @RequestParam int ownerId) {
         try {
+
             boolean isDeleted = roomService.deleteRoom(id,(long)ownerId);
             if (isDeleted) {
                 return new ResponseEntity<>(Map.of("message", "Room deleted successfully"), HttpStatus.NO_CONTENT);

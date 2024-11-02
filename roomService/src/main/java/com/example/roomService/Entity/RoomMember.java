@@ -1,5 +1,6 @@
 package com.example.roomService.Entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -17,6 +18,7 @@ public class RoomMember {
 
     @ManyToOne
     @JoinColumn(name = "room_id")
+    @JsonBackReference
     private Room room;
 
     private Long userId; // Store only user ID to maintain loose coupling

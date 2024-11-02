@@ -8,4 +8,6 @@ import java.util.List;
 public interface RoomMemberRepository extends JpaRepository<RoomMember,Long> {
     List<RoomMember> findByRoomId(Long roomId);
     RoomMember findByRoomIdAndUserId(Long roomId, Long userId);
+
+    List<RoomMember> findByUserId(Long userId);
 }

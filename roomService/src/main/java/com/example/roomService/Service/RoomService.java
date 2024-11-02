@@ -60,10 +60,10 @@ public class RoomService {
                    .orElseThrow(() -> new RuntimeException("Room not found"));
 
            // Check if the requester is the owner
-           RoomMember ownerMember = roomMemberRepository.findByRoomIdAndUserId(roomId, ownerId);
-           if (ownerMember == null) {
-               throw new RuntimeException("Only the owner can delete the room");
-           }
+//           RoomMember ownerMember = roomMemberRepository.findByRoomIdAndUserId(roomId, ownerId);
+//           if (ownerMember == null) {
+//               throw new RuntimeException("Only the owner can delete the room");
+//           }
 
            roomRepository.delete(room);
            return true;
@@ -100,5 +100,12 @@ public class RoomService {
 
         roomMember.setRoom(room);
         return roomMemberRepository.save(roomMember);
+    }
+
+    public List<Room> getRoomsByUserId(Long userId) {
+        List<RoomMember> roomMembers = roomMemberRepository.findByUserId(userId);
+        return roomMembers.stream()
+                .map(RoomMember::getRoom)
+                .collect(Collectors.toList());
     }
 }

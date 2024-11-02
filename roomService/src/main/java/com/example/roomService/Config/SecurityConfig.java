@@ -1,4 +1,4 @@
-package com.example.userService.Config;
+package com.example.roomService.Config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -52,3 +52,4 @@ public class SecurityConfig {
         return source;
     }
 }
+

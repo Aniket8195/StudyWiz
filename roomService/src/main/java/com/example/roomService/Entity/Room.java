@@ -1,6 +1,7 @@
 package com.example.roomService.Entity;
 
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -24,6 +25,7 @@ public class Room {
     private boolean isPrivate;
 
     @OneToMany(mappedBy = "room", cascade = CascadeType.ALL)
+    @JsonManagedReference
     private List<RoomMember> members;
 
     // Getters and Setters
