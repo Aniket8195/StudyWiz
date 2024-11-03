@@ -21,6 +21,12 @@ public class VideoStream {
     @Column(name = "user_id", nullable = false)
     private Long userId;
 
+    @Column(name = "username", nullable = false)
+    private String username;
+
     @Column(name = "stream_url", nullable = false)
     private String streamUrl;
+
+    @Column(name = "is_active")
+    private boolean isActive = true;
 }
