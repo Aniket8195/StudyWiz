@@ -17,10 +17,14 @@ spring:
 #      client:
 #        serviceUrl:
 #          defaultZone: http://localhost:8761/eureka/
+#eureka:
+#  client:
+#    serviceUrl:
+#      defaultZone: http://localhost:8761/eureka/
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://localhost:8761/eureka/
+      defaultZone: ${eureka.defaultZone}
 
 springdoc:
   api-docs:

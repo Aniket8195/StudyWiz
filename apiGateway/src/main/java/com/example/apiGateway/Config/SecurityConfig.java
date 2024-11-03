@@ -42,6 +42,8 @@ public class SecurityConfig {
         config.addAllowedOrigin("https://15f8-2409-40c2-2048-64bd-4426-1313-6425-13e.ngrok-free.app");
         config.addAllowedOrigin("http://localhost:5173");
         config.addAllowedOrigin("http://157.33.203.18:5173");
+        config.addAllowedOrigin(System.getenv("ALLOWED_ORIGIN_1"));
+        config.addAllowedOrigin(System.getenv("ALLOWED_ORIGIN_2"));
        // config.addAllowedOrigin(("https://15f8-2409-40c2-2048-64bd-4426-1313-6425-13e.ngrok-free.app","http://localhost:5173"));
         config.addAllowedHeader("*");
         config.addAllowedMethod("*");

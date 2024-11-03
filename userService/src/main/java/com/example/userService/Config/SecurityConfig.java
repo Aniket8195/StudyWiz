@@ -41,7 +41,8 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of("http://localhost:8080", "http://localhost:8092","http://localhost:8093","https://15f8-2409-40c2-2048-64bd-4426-1313-6425-13e.ngrok-free.app","http://157.33.203.18:5173")); // Add your frontend origins
+        //configuration.setAllowedOrigins(List.of("http://localhost:8080", "http://localhost:8092","http://localhost:8093","https://15f8-2409-40c2-2048-64bd-4426-1313-6425-13e.ngrok-free.app","http://157.33.203.18:5173")); // Add your frontend origins
+        configuration.setAllowedOrigins(getConfig());
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("Authorization", "Content-Type"));
         configuration.setAllowCredentials(true);
@@ -50,5 +51,12 @@ public class SecurityConfig {
         source.registerCorsConfiguration("/**", configuration);
 
         return source;
+    }
+    public List<String> getConfig(){
+        List<String> config = List.of("http://localhost:8080", "http://localhost:8092","http://localhost:8093","http://localhost:5173","https://15f8-2409-40c2-2048-64bd-4426-1313-6425-13e.ngrok-free.app","http://157.33.18:5173");
+        config.add(System.getenv("ALLOWED_ORIGIN_1"));
+        config.add(System.getenv("ALLOWED_ORIGIN_2"));
+        return config;
+
     }
 }
