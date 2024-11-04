@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name:  react-app
-        image:  aniket9518/studywizapp
+        image:  aniket9518/studywizapp:latest
         ports:
         - containerPort: 5173
 
@@ -26,11 +26,13 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: react-app
-  namespace: default
+  name: react-app-service
+  namespace: default  # Change if using a different namespace
 spec:
+  type: NodePort
   ports:
-    - port: 5173
-      targetPort: 5173
+    - port: 80              # Port exposed by the service
+      targetPort: 5173      # Port on which the app is running in the container
+      nodePort: 30001       # Specify a NodePort (optional, else it'll be assigned automatically)
   selector:
-    app: react-app
+    app: react-app          # Make sure this matches your deployment's labels

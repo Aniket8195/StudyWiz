@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: room-service
-        image: aniket9518/roomservice  # Replace with your Room Service image
+        image: aniket9518/roomservice:latest  # Replace with your Room Service image
         ports:
         - containerPort: 8092
         volumeMounts:

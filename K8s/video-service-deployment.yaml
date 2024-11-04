@@ -15,7 +15,8 @@ spec:
     spec:
       containers:
       - name: video-service
-        image: aniket9518/videoservice  # Replace with your Video Service image
+        image: aniket9518/videoservice:latest
+        imagePullPolicy: Always      # Replace with your Video Service image
         ports:
         - containerPort: 8093
         volumeMounts:

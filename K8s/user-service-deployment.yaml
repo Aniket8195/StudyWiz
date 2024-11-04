@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: user-service
-        image: aniket9518/userservice  # Replace with your User Service image
+        image: aniket9518/userservice:latest  # Replace with your User Service image
         ports:
         - containerPort: 8091
         volumeMounts:
