@@ -32,14 +32,13 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: react-app-service
-  namespace: default  # Change if using a different namespace
+  name: api-gateway
+  namespace: default
 spec:
-  type: NodePort
   ports:
-    - port: 80              # Port exposed by the service
-      targetPort: 3000      # Port on which the app is running in the container
-      nodePort: 30001       # Specify a NodePort (optional, else it'll be assigned automatically)
+    - port: 8080
+      targetPort: 8080
   selector:
-    app: react-app          # Make sure this matches your deployment's labels
+    app: api-gateway
+
 
