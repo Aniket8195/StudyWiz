@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: video-service
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: video-service
+  template:
+    metadata:
+      labels:
+        app: video-service
+    spec:
+      containers:
+      - name: video-service
+        image: aniket9518/videoservice  # Replace with your Video Service image
+        ports:
+        - containerPort: 8093
+        volumeMounts:
+        - name: config-volume
+          mountPath: /config
+        env:
+        - name: SPRING_CONFIG_LOCATION
+          value: "file:/config/"
+      volumes:
+      - name: config-volume
+        configMap:
+          name: studywiz-config  # Reference the existing ConfigMap
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: video-service
+  namespace: default
+spec:
+  ports:
+    - port: 8093
+      targetPort: 8093
+  selector:
+    app: video-service

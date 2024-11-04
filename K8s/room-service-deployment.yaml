@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: room-service
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: room-service
+  template:
+    metadata:
+      labels:
+        app: room-service
+    spec:
+      containers:
+      - name: room-service
+        image: aniket9518/roomservice  # Replace with your Room Service image
+        ports:
+        - containerPort: 8092
+        volumeMounts:
+        - name: config-volume
+          mountPath: /config
+        env:
+        - name: SPRING_CONFIG_LOCATION
+          value: "file:/config/"
+      volumes:
+      - name: config-volume
+        configMap:
+          name: studywiz-config  # Reference the existing ConfigMap
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: room-service
+  namespace: default
+spec:
+  ports:
+    - port: 8092
+      targetPort: 8092
+  selector:
+    app: room-service

@@ -39,6 +39,7 @@ public class SecurityConfig {
     public CorsWebFilter corsFilter() {
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
+        config.addAllowedOrigin("*");
         config.addAllowedOrigin("https://15f8-2409-40c2-2048-64bd-4426-1313-6425-13e.ngrok-free.app");
         config.addAllowedOrigin("http://localhost:5173");
         config.addAllowedOrigin("http://157.33.203.18:5173");

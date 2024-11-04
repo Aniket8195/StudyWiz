@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: studywiz-config
+  namespace: default
+data:
+  # Eureka configuration
+  eureka.defaultZone: "http://eureka-server.default.svc.cluster.local:8761/eureka"
+  
+  # CORS Allowed Origins
+  ALLOWED_ORIGIN_1: "http://react-app.default.svc.cluster.local:5173"  # Service URL for the React App
+  ALLOWED_ORIGIN_2: "http://api-gateway.default.svc.cluster.local:8080"   # Service URL for the API Gateway
+
+  # Eureka Server Configuration
+  eureka.instance.hostname: "localhost"  # Hostname for the Eureka server
+  eureka.client.register-with-eureka: "false"  # Should not register with itself
+  eureka.client.fetch-registry: "false"       # Should not fetch the registry
+  eureka.client.service-url.defaultZone: "http://eureka-server.default.svc.cluster.local:8761/eureka/"  # Service URL for Eureka

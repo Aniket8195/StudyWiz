@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name:  react-app
+  namespace: default
+  labels:
+    app:  react-app
+spec:
+  selector:
+    matchLabels:
+      app: react-app
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app:  react-app
+    spec:
+      containers:
+      - name:  react-app
+        image:  aniket9518/studywizapp
+        ports:
+        - containerPort: 5173
+
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: react-app
+  namespace: default
+spec:
+  ports:
+    - port: 5173
+      targetPort: 5173
+  selector:
+    app: react-app

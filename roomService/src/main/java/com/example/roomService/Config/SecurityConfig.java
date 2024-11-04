@@ -57,6 +57,7 @@ public class SecurityConfig {
         List<String> config = List.of("http://localhost:8080", "http://localhost:8092","http://localhost:8093","http://localhost:5173","https://15f8-2409-40c2-2048-64bd-4426-1313-6425-13e.ngrok-free.app","http://157.33.18:5173");
         config.add(System.getenv("ALLOWED_ORIGIN_1"));
         config.add(System.getenv("ALLOWED_ORIGIN_2"));
+        config.add("*");
         return config;
 
     }
